@@ -1,0 +1,48 @@
+body {
+  font-family: sans;
+}
+th,
+td,
+tr {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+table {
+  border: 2px solid black;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+td {
+  font-family: Arial;
+}
+
+/* tr {
+  text-align: left;
+  border-width: 2px;
+  border-right-color: black;
+  border-right-style: solid;
+  border-right-color: black;
+  border-bottom-style: solid;
+}
+td {
+  text-align: left;
+  border-width: 2px;
+  border-right-color: black;
+  border-right-style: dashed;
+  border-right-color: grey;
+  border-bottom-style: solid;
+
+  border-bottom-color: grey;
+  border-radius: 3px;
+  height: 30px;
+}
+th {
+  text-align: left;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  border-bottom-style: none;
+} */
