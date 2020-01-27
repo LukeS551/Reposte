@@ -1,18 +1,16 @@
 .strech:hover {
-  max-height: 800px;
-  transition: max-height 1s;
   box-shadow: 6px 6px 12px #525252, -6px -6px 12px #ffffff;
+}
+.card-text {
+  max-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .strech {
   border-radius: 8px;
   border: 0px;
   background: #cccccc;
-
-  transition: max-height 0.8s;
-  max-height: 142px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
 }

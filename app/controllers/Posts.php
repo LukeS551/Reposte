@@ -162,11 +162,15 @@ class Posts extends Controller {
             $content = ('<tr>');
             $content .= $this->pageFormat($post->title, 'th');
             $content .= $this->pageFormat($user->name, 'td');
-            $content .= $this->pageFormat($post->body, 'td');
             $content .= $this->pageFormat($post->created_at, 'td');
             $content .= ('<tr>');
            $mpdf->WriteHTML($content);
-        $mpdf->WriteHTML('</table>');
+        $mpdf->WriteHTML('</table><br>');
+        $mpdf->WriteHTML($post->body);
+        $link = '<br><a href= "https://www.youtube.com/watch?v=9oc8Fa7tb8c">
+        <img src= "'. URLROOT. ' /img/scoreThumb.png" alt="HTML tutorial" style="width:256px;height:144px;border:0;">
+      </a>';
+        $mpdf->WriteHTML($link);
         $mpdf->Output('posts.pdf', 'I');
     }
 

@@ -14,6 +14,14 @@ require APPROOT . '/views/inc/header.php'; ?>
 </div>
 <?php foreach($data['posts'] as $post) : ?>
   <div class="card card-body mb-3 strech">
+    <div class="row">
+
+<div class="col-lg-3">
+<a href= "https://www.youtube.com/watch?v=9oc8Fa7tb8c">
+        <img src= <?= URLROOT?>/img/scoreThumb.png alt="HTML tutorial" style="width:256px;height:144px;border:0;">
+      </a>
+</div>
+<div class="col-lg-9">
   <h4 class="card-title"><?= $post->title; ?></h4>
   <div class="bg-light p-2 mb-3">
   written by  <?= $post->name; ?> on <?= $post->postCreated; ?>
@@ -21,5 +29,7 @@ require APPROOT . '/views/inc/header.php'; ?>
   <p class="card-text"><?= $post->body; ?></p>
   <a href="<?= URLROOT; ?>/posts/show/<?= $post->postId; ?>" class="btn btn-dark">More</a>
   </div>
+</div>
+</div>
   <?php endforeach; ?>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
