@@ -1,7 +1,7 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/header.php';?>
   <div class="row">
     <div class="col-md-6 mx-auto">
-      <div class="card card-body bg-light mt-5">
+      <div class="card card-body bg-light mt-5 account">
         <h2>Create An Account</h2>
         <p>Please fill out this form to register with us</p>
         <form action="<?php echo URLROOT; ?>/users/register" method="post">
@@ -28,7 +28,7 @@
 
           <div class="row">
             <div class="col">
-              <input type="submit" value="Register" class="btn btn-success btn-block">
+              <input type="submit" value="Register" class="btn btn-success-nue btn-success btn-block">
             </div>
             <div class="col">
               <a href="<?php echo URLROOT; ?>/users/login" class="btn btn-light btn-block">Have an account? Login</a>
@@ -38,4 +38,4 @@
       </div>
     </div>
   </div>
-<?php require APPROOT . '/views/inc/footer.php'; ?>
+<?php require APPROOT . '/views/inc/footer.php';?>

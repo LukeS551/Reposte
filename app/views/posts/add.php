@@ -20,7 +20,7 @@
             class="form-control form-control-lg <?php echo (!empty($data['body_err'])) ? 'is-invalid' : ''; ?>"><?php echo $data['body']; ?></textarea>
           <span class="invalid-feedback"><?php echo $data['body_err']; ?></span>
         </div>
-        <input type="submit" class="btn btn-success" value="Submit">
+        <input type="submit" class="btn btn-success-nue btn-success" value="Submit">
       </form>
     </div>
     <div class="col-4">

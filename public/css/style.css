@@ -12,6 +12,12 @@ body {
   box-shadow: 3px 3px 12px #a9bb7f, -3px -3px 12px #fdffbf;
 }
 
+.account {
+  box-shadow: 3px 3px 12px #525252,
+    -3px -3px 12px #ffffff;
+  ;
+}
+
 .card-text {
   max-height: 20px;
   overflow: hidden;
@@ -42,6 +48,15 @@ body {
 }
 
 .btn-primary-nue:hover {
+  box-shadow: none;
+}
+
+.btn-success-nue {
+  box-shadow: 1px 1px 4px #10431c,
+    -1px -1px 4px #40ff6e;
+}
+
+.btn-success-nue:hover {
   box-shadow: none;
 }
 

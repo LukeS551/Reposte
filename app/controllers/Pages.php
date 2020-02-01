@@ -13,7 +13,7 @@ class Pages extends Controller
 
         $data = [
             'title' => 'RE:POSTE',
-            'description' => 'Simple social network built on the TraversyMVC PHP framework',
+            'description' => 'Simple blogging network built on the TraversyMVC PHP framework',
         ];
 
         $this->view('pages/index', $data);
