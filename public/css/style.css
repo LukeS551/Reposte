@@ -1,6 +1,17 @@
-.strech:hover {
-  box-shadow: 6px 6px 12px #525252, -6px -6px 12px #ffffff;
+body {
+  font-family: 'Lato', sans-serif;
+  background-image: url("../img/mount.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: grey;
+  background-blend-mode: screen;
+  background-attachment: fixed;
 }
+
+.strech {
+  box-shadow: 3px 3px 12px #a9bb7f, -3px -3px 12px #fdffbf;
+}
+
 .card-text {
   max-height: 20px;
   overflow: hidden;
@@ -12,5 +23,38 @@
 .strech {
   border-radius: 8px;
   border: 0px;
-  background: #cccccc;
+  background: #d3ea9f;
+  padding: 0px;
+}
+
+.btn-dark-nue {
+  box-shadow: 1px 1px 4px #15171a,
+    -1px -1px 4px #535d66;
+}
+
+.btn-dark-nue:hover {
+  box-shadow: none;
+}
+
+.btn-primary-nue {
+  box-shadow: 1px 1px 4px #296292,
+    -1px -1px 4px #3d92dc;
+}
+
+.btn-primary-nue:hover {
+  box-shadow: none;
+}
+
+.strech img {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.text {
+  margin-top: 14px;
+}
+
+h4,
+h1 {
+  font-weight: bold;
 }
