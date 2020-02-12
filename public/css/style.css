@@ -60,6 +60,15 @@ body {
   box-shadow: none;
 }
 
+.btn-danger-nue {
+  box-shadow: 1px 1px 4px #e00000,
+    -1px -1px 4px #ff0000;
+}
+
+.btn-danger-nue:hover {
+  box-shadow: none;
+}
+
 .strech img {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;

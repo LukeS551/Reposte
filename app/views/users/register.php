@@ -28,10 +28,10 @@
 
           <div class="row">
             <div class="col">
-              <input type="submit" value="Register" class="btn btn-success-nue btn-success btn-block">
+            <button class="btn btn-success-nue btn-success btn-block">Sign Up <i class="fa fa-user-plus"></i></button>
             </div>
             <div class="col">
-              <a href="<?php echo URLROOT; ?>/users/login" class="btn btn-light btn-block">Have an account? Login</a>
+              <a href="<?php echo URLROOT; ?>/users/login" class="btn btn-light btn-block">Have an account? Login <i class="fa fa-sign-in"></i></a>
             </div>
           </div>
         </form>

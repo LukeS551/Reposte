@@ -1,24 +1,28 @@
 <?php
-class Posts extends Controller {
-    public function __construct(){
-        if(!isLoggedIn()){
+class Posts extends Controller
+{
+    public function __construct()
+    {
+        if (!isLoggedIn()) {
             redirect('users/login');
         }
         $this->postModel = $this->model('Post');
         $this->userModel = $this->model('User');
 
     }
-    public function index(){
+    public function index()
+    {
 
         $posts = $this->postModel->getPosts();
         $data = [
-            'posts' => $posts
+            'posts' => $posts,
         ];
         $this->view('posts/index', $data);
     }
 
-    public function add(){
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    public function add()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data = [
@@ -26,48 +30,50 @@ class Posts extends Controller {
                 'body' => trim($_POST['body']),
                 'user_id' => $_SESSION['user_id'],
                 'title_err' => '',
-                'body_err' => ''
+                'body_err' => '',
             ];
 
-            if(empty($data['title'])){
+            if (empty($data['title'])) {
                 $data['title_err'] = 'Please enter title';
             }
 
-            if(empty($data['body'])){
+            if (empty($data['body'])) {
                 $data['body_err'] = 'Please write content';
             }
 
-            if(empty($data['title_err']) && empty($data['body_err'])){
-                if($this->postModel->addPost($data)){
+            if (empty($data['title_err']) && empty($data['body_err'])) {
+                if ($this->postModel->addPost($data)) {
                     flash('post_message', 'Post Added');
                     redirect('posts');
                 }
             } else {
-               $this->view('posts/add', $data);
+                $this->view('posts/add', $data);
             }
 
         } else {
             $data = [
                 'title' => '',
-                'body' => ''
+                'body' => '',
             ];
         }
-        
+
         $this->view('posts/add', $data);
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $post = $this->postModel->getPostById($id);
         $user = $this->userModel->getUserById($post->user_id);
         $data = [
             'post' => $post,
-            'user' => $user
+            'user' => $user,
         ];
         $this->view('posts/show', $data);
     }
 
-    public function edit($id){
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    public function edit($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data = [
@@ -76,66 +82,67 @@ class Posts extends Controller {
                 'body' => trim($_POST['body']),
                 'user_id' => $_SESSION['user_id'],
                 'title_err' => '',
-                'body_err' => ''
+                'body_err' => '',
             ];
 
-            if(empty($data['title'])){
+            if (empty($data['title'])) {
                 $data['title_err'] = 'Please enter title';
             }
 
-            if(empty($data['body'])){
+            if (empty($data['body'])) {
                 $data['body_err'] = 'Please write content';
             }
 
-            if(empty($data['title_err']) && empty($data['body_err'])){
-                if($this->postModel->updatePost($data)){
+            if (empty($data['title_err']) && empty($data['body_err'])) {
+                if ($this->postModel->updatePost($data)) {
                     flash('post_message', 'Post Updated');
                     redirect('posts');
                 }
             } else {
-               $this->view('posts/add', $data);
+                $this->view('posts/add', $data);
             }
 
         } else {
             $post = $this->postModel->getPostById($id);
 
-            if($post->user_id != $_SESSION['user_id']){
+            if ($post->user_id != $_SESSION['user_id']) {
                 redirect('posts');
             }
             $data = [
                 'id' => $id,
                 'title' => $post->title,
-                'body' => $post->body
+                'body' => $post->body,
             ];
         }
-        
+
         $this->view('posts/edit', $data);
     }
 
-    public function delete($id){
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            if($this->postModel->deletePost($id)){
+    public function delete($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->postModel->deletePost($id)) {
                 flash('post_message', 'Post Removed');
-                redirect('posts'); 
-            } else{
+                redirect('posts');
+            } else {
                 die('Something went wrong!');
             }
         } else {
             redirect('posts');
         }
     }
-    
-    public function printpost(){
+
+    public function printpost()
+    {
         $posts = $this->postModel->getPosts();
-        $stylesheet= file_get_contents(URLROOT. "/css/pdf.css");
+        $stylesheet = file_get_contents(URLROOT . "/css/pdf.css");
 
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->WriteHTML($stylesheet, 1);
 
         $mpdf->WriteHTML('<h1>Record Files</h1><table>');
-        
-        foreach($posts as $post)
-        {
+
+        foreach ($posts as $post) {
             $user = $this->userModel->getUserById($post->user_id);
             $content = ('<tr>');
             $content .= $this->pageFormat($post->title, 'th');
@@ -144,46 +151,52 @@ class Posts extends Controller {
             $content .= $this->pageFormat($var, 'td');
             $content .= $this->pageFormat($post->created_at, 'td');
             $content .= ('<tr>');
-           $mpdf->WriteHTML($content);
+            $mpdf->WriteHTML($content);
         }
         $mpdf->WriteHTML('</table>');
         $mpdf->Output('posts.pdf', 'I');
     }
 
-    public function printOne($id){
+    public function printOne($id)
+    {
         $post = $this->postModel->getPostById($id);
-        $stylesheet= file_get_contents(URLROOT. "/css/pdf.css");
+        $stylesheet = file_get_contents(URLROOT . "/css/pdf.css");
 
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->WriteHTML($stylesheet, 1);
 
         $mpdf->WriteHTML('<h1>Record</h1><table>');
-            $user = $this->userModel->getUserById($post->user_id);
-            $content = ('<tr>');
-            $content .= $this->pageFormat($post->title, 'th');
-            $content .= $this->pageFormat($user->name, 'td');
-            $content .= $this->pageFormat($post->created_at, 'td');
-            $content .= ('<tr>');
-           $mpdf->WriteHTML($content);
+        $user = $this->userModel->getUserById($post->user_id);
+        $content = ('<tr>');
+        $content .= $this->pageFormat($post->title, 'th');
+        $content .= $this->pageFormat($user->name, 'td');
+        $content .= $this->pageFormat($post->created_at, 'td');
+        $content .= ('<tr>');
+        $mpdf->WriteHTML($content);
         $mpdf->WriteHTML('</table><br>');
         $mpdf->WriteHTML($post->body);
         $link = '<br><a href= "https://www.youtube.com/watch?v=9oc8Fa7tb8c">
-        <img src= "'. URLROOT. ' /img/scoreThumb.png" alt="HTML tutorial" style="width:256px;height:144px;border:0;">
+        <img src= "' . URLROOT . ' /img/scoreThumb.png" alt="HTML tutorial" style="width:256px;height:144px;border:0;">
       </a>';
         $mpdf->WriteHTML($link);
         $mpdf->Output('posts.pdf', 'I');
     }
+    public function upload()
+    {
+
+    }
 
     public function cutLength($var, $length)
     {
-        if(strlen($var) > $length){
-            $var = substr($var,0,$length). '...';
+        if (strlen($var) > $length) {
+            $var = substr($var, 0, $length) . '...';
         }
-        return($var);
+        return ($var);
     }
 
-    public function pageFormat($postData, $tag){
-        $content = ('<'. ($tag) .'>'.($postData).'</'. ($tag). '>');
+    public function pageFormat($postData, $tag)
+    {
+        $content = ('<' . ($tag) . '>' . ($postData) . '</' . ($tag) . '>');
         return $content;
     }
 }

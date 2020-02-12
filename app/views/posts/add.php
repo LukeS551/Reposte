@@ -1,13 +1,12 @@
 <?php require APPROOT . '/views/inc/header.php';?>
 <a href="<?php echo URLROOT; ?>/posts" class="btn btn-light"><i class="fa fa-backward"></i> Back</a>
-<div class="card card-body bg-light mt-5">
+<div class="card card-body bg-light mt-5 account">
   <div class="row">
 
 
     <div class="col-8">
       <form action="<?php echo URLROOT; ?>/posts/add" method="post">
         <h2>Add Post</h2>
-        <p>Create a post with this form</p>
         <div class="form-group">
           <label for="title">Title: <sup>*</sup></label>
           <input type="text" name="title"
@@ -24,14 +23,13 @@
       </form>
     </div>
     <div class="col-4">
-
-      <div class="card card-body bg-light">
-        <h2>Add image</h2>
-        <a href="https://www.youtube.com/watch?v=9oc8Fa7tb8c">
-          <img src=<?=URLROOT?>/img/scoreThumb.png alt="HTML tutorial" style="width:256px;height:144px;border:0;">
-        </a>
-
+    <h2>Add image</h2>
+    <br>
+    <form action="<?php echo URLROOT; ?>/posts/upload" method="post" enctype="multipart/form-data">
+      <div class="card card-body bg-light account">
+          <input type="image" src =<?=URLROOT?>/img/scoreThumb.png alt="HTML tutorial" style="width:100%;border:0;">
       </div>
+      </form>
     </div>
   </div>
 </div>

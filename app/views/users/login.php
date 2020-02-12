@@ -19,10 +19,11 @@
 
           <div class="row">
             <div class="col">
-              <input type="submit" value="Login" class="btn btn-success-nue btn-success btn-block">
+            <button class="btn btn-success-nue btn-success btn-block">Login <i class="fa fa-sign-in"></i></button>
+              <!-- <input type="submit" <i class="icon-search icon-2x"></i> value="Login" class="btn btn-success-nue btn-success btn-block"> -->
             </div>
             <div class="col">
-              <a href="<?php echo URLROOT; ?>/users/Register" class="btn btn-light btn-block">Have no account? Register</a>
+              <a href="<?php echo URLROOT; ?>/users/Register" class="btn btn-light btn-block">Have no account? Sign Up <i class="fa fa-user-plus"></i></a>
             </div>
           </div>
         </form>
