@@ -1,11 +1,16 @@
 <?php require APPROOT . '/views/inc/header.php';?>
-<a href="<?=URLROOT;?>/posts" class="btn btn-light"><i class="fa fa-backward"></i> Back</a>
+
 <br>
+<div class="p-2 cover">
+<a href="<?=URLROOT;?>/posts" class="btn btn-light"><i class="fa fa-backward"></i> Back</a>
 <h1><?=$data['post']->title;?></h1>
-<div class="bg-secondary text-white p-2 mb-3">
+</div>
+<div class="bg-secondary text-white p-2">
     written by <?=$data['user']->name;?> on <?=$data['post']->created_at;?>
 </div>
+<div class="test">
 <p><?=$data['post']->body;?></p>
+
 
 <?php if ($data['post']->user_id == $_SESSION['user_id']): ?>
 
@@ -17,3 +22,4 @@
 <i class="fa fa-print"></i> Print</a>
 <?php endif;?>
 <?php require APPROOT . '/views/inc/footer.php';?>
+</div>

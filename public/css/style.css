@@ -82,3 +82,18 @@ h4,
 h1 {
   font-weight: bold;
 }
+
+.cover {
+  background-image: url("../img/back.jpg");
+  height: 400px;
+
+  object-fit: cover;
+  background-size: cover;
+  background-position: 0% 100%;
+}
+
+.test {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(255, 255, 255, 0.5);
+  padding: 5px;
+}
