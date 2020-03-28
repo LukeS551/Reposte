@@ -1,5 +1,10 @@
 {
     "require": {
-        "mpdf/mpdf": "^8.0"
+        "mpdf/mpdf": "^8.0",
+        "oomphinc/composer-installers-extender": "^1.1",
+        "repositories": [{
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }]
     }
 }

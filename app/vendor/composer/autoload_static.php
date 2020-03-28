@@ -20,6 +20,10 @@ class ComposerStaticInitb3a3e1f6558354c45a85e631c913f66b
         array (
             'Psr\\Log\\' => 8,
         ),
+        'O' => 
+        array (
+            'OomphInc\\ComposerInstallersExtender\\' => 36,
+        ),
         'M' => 
         array (
             'Mpdf\\' => 5,
@@ -27,6 +31,10 @@ class ComposerStaticInitb3a3e1f6558354c45a85e631c913f66b
         'D' => 
         array (
             'DeepCopy\\' => 9,
+        ),
+        'C' => 
+        array (
+            'Composer\\Installers\\' => 20,
         ),
     );
 
@@ -39,6 +47,10 @@ class ComposerStaticInitb3a3e1f6558354c45a85e631c913f66b
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
+        'OomphInc\\ComposerInstallersExtender\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/oomphinc/composer-installers-extender/src',
+        ),
         'Mpdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
@@ -46,6 +58,10 @@ class ComposerStaticInitb3a3e1f6558354c45a85e631c913f66b
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Composer\\Installers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
         ),
     );
 

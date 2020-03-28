@@ -1,0 +1,5 @@
+{
+    "require": {
+        "oomphinc/composer-installers-extender": "^1.1"
+    }
+}

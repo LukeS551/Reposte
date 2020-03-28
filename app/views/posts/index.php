@@ -1,5 +1,6 @@
 <?php
 require APPROOT . '/views/inc/header.php';?>
+
 <div class="row mb-3">
   <div class="col-md-6">
     <?php flash('post_message');?>
@@ -33,3 +34,5 @@ require APPROOT . '/views/inc/header.php';?>
 </div>
 <?php endforeach;?>
 <?php require APPROOT . '/views/inc/footer.php';?>
+<script src="http://localhost/riposte/js/main.js"></script>
+
