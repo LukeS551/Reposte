@@ -4,13 +4,13 @@ require APPROOT . '/views/inc/header.php';?>
 <div class="row mb-3">
   <div class="col-md-6">
     <?php flash('post_message');?>
-    <h1>Posts</h1>
+    <h1>Posts <?php echo APPROOT ?></h1>
   </div>
   <div class="col-md-6">
     <a href="<?=URLROOT;?>/posts/printpost" class="btn btn-primary-nue btn-primary pull-right m-1">
       <i class="fa fa-print"></i> Print Record</a>
     <a href="<?=URLROOT;?>/posts/add" class="btn btn-primary-nue btn-primary pull-right m-1 ">
-      <i class="fa fa-pencil"></i> Add Post</a>
+      <i class="fa fa-plus"></i> Add Post</a>
   </div>
 </div>
 <?php foreach ($data['posts'] as $post): ?>
@@ -28,7 +28,7 @@ require APPROOT . '/views/inc/header.php';?>
         written by <?=$post->name;?> on <?=$post->postCreated;?>
       </div>
       <p class="card-text"><?=$post->body;?></p>
-      <a href="<?=URLROOT;?>/posts/show/<?=$post->postId;?>" class="btn btn-dark-nue btn-dark">More</a>
+      <a href="<?=URLROOT;?>/posts/show/<?=$post->postId;?>" class="btn btn-dark-nue btn-dark"><i class="fa fa-mouse-pointer"></i> View</a>
     </div>
   </div>
 </div>

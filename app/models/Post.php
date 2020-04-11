@@ -1,14 +1,17 @@
 <?php
-class Post {
+class Post
+{
     private $db;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->db = new Database;
     }
 
-    public function getPosts(){
-        $this->db->query('SELECT *, 
-        posts.id as postId, 
+    public function getPosts()
+    {
+        $this->db->query('SELECT *,
+        posts.id as postId,
         users.id as userId,
         posts.created_at as postCreated,
         users.created_at as userCreated
@@ -23,18 +26,20 @@ class Post {
     }
     public function addPost($data)
     {
-        $this->db->query('INSERT INTO posts (user_id, title, body) VALUES(:user_id, :title, :body)');
+        $this->db->query('INSERT INTO posts (user_id, title, body, image) VALUES(:user_id, :title, :body, :image)');
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':title', $data['title']);
         $this->db->bind(':body', $data['body']);
+        $this->db->bind(':image', $data['image']);
 
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
         } else {
             return false;
         }
     }
-    public function getPostById($id){
+    public function getPostById($id)
+    {
         $this->db->query('SELECT * FROM posts WHERE id = :id');
         $this->db->bind(':id', $id);
 
@@ -42,24 +47,27 @@ class Post {
 
         return $row;
     }
-    public function updatePost($data){
-        $this->db->query('UPDATE posts SET title = :title, body = :body WHERE id = :id');
+    public function updatePost($data)
+    {
+        $this->db->query('UPDATE posts SET title = :title, body = :body, image = :image WHERE id = :id');
         $this->db->bind(':id', $data['id']);
         $this->db->bind(':title', $data['title']);
         $this->db->bind(':body', $data['body']);
+        $this->db->bind(':image', $data['image']);
 
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function deletePost($id){
+    public function deletePost($id)
+    {
         $this->db->query('DELETE FROM posts WHERE id = :id');
         $this->db->bind(':id', $id);
 
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
         } else {
             return false;
