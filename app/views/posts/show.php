@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php';?>
 
 <br>
-<div class="p-2 cover">
+<div class="p-2 cover" style="background-image: url('<?=URLROOT?>/img/<?=$data['post']->image?>')">
 <a href="<?=URLROOT;?>/posts" class="btn btn-light"><i class="fa fa-backward"></i> Back</a>
 <h1><?=$data['post']->title;?></h1>
 </div>

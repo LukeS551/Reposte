@@ -9,7 +9,7 @@ body {
 }
 
 .strech {
-  box-shadow: 3px 3px 12px #a9bb7f, -3px -3px 12px #fdffbf;
+  box-shadow: 3px 3px 12px #a3a3a3, -3px -3px 12px#a3a3a3;
 }
 
 .account {
@@ -29,7 +29,7 @@ body {
 .strech {
   border-radius: 8px;
   border: 0px;
-  background: #d3ea9f;
+  background: #a3a3a3;
   padding: 0px;
 }
 
@@ -72,6 +72,7 @@ body {
 .strech img {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+  height: 200px;
 }
 
 .text {
@@ -84,8 +85,7 @@ h1 {
 }
 
 .cover {
-  background-image: url("../img/back.jpg");
-  height: 400px;
+  height: 500px;
 
   object-fit: cover;
   background-size: cover;

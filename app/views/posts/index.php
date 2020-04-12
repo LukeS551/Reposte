@@ -4,7 +4,7 @@ require APPROOT . '/views/inc/header.php';?>
 <div class="row mb-3">
   <div class="col-md-6">
     <?php flash('post_message');?>
-    <h1>Posts <?php echo APPROOT ?></h1>
+    <h1>Posts</h1>
   </div>
   <div class="col-md-6">
     <a href="<?=URLROOT;?>/posts/printpost" class="btn btn-primary-nue btn-primary pull-right m-1">
@@ -19,7 +19,7 @@ require APPROOT . '/views/inc/header.php';?>
 
     <div class="full col-lg-4">
       <a href="https://www.youtube.com/watch?v=9oc8Fa7tb8c">
-        <img src=<?=URLROOT?>/img/back.jpg alt="HTML tutorial" style="width:100%;border:0;">
+        <img src="<?=URLROOT?>/img/<?=$post->image;?>" alt="HTML tutorial" style="width:100%;border:0;">
       </a>
     </div>
     <div class=" text col-lg-8 col-sm-9">

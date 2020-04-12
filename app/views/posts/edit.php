@@ -17,10 +17,15 @@
           <span class="invalid-feedback"><?php echo $data['body_err']; ?></span>
         </div>
         <div class="form-group">
-      <h2>Add image</h2>
-      <input type="file" name="image" class="form-control">
-        <img src=<?=URLROOT?>/img/scoreThumb.png alt="HTML tutorial" style="width:256px;height:144px;border:0;">
-    </div>
+        <label for="body">Image: <sup>*</sup></label>
+        <!-- <span class="invalid-feedback"><?php echo $data['img_err']; ?></span> -->
+        <div>
+      <input type="file" name="image" class="form-control form-control-lg">
+        <img src="<?=URLROOT?>/img/<?=$data['image']?>" alt="HTML tutorial" style="width:256px;height:144px;border:0;">
+        </div>
+
+
+        </div>
     <input type="submit" class="btn btn-success btn-success-nue" value="Submit">
       </form>
     </div>

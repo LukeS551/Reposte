@@ -77,6 +77,7 @@ class Posts extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $imageName = $_FILES['image']['name'];
+            $target = dirname(APPROOT) . '/public/img/' . $imageName;
             $data = [
                 'id' => $id,
                 'title' => trim($_POST['title']),
@@ -85,6 +86,7 @@ class Posts extends Controller
                 'user_id' => $_SESSION['user_id'],
                 'title_err' => '',
                 'body_err' => '',
+                'img_err' => '',
             ];
 
             if (empty($data['title'])) {
@@ -94,54 +96,53 @@ class Posts extends Controller
             if (empty($data['body'])) {
                 $data['body_err'] = 'Please write content';
             }
+            if ($_FILES['image']['size'] >= 100000000) {
+                $data['body_err'] = 'Exceeded filesize limit';
+            }
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            if (false === $ext = array_search(
+                $finfo->file($_FILES['image']['tmp_name']),
+                array(
+                    'jpg' => 'image/jpeg',
+                    'png' => 'image/png',
+                    'gif' => 'image/gif',
+                ),
+                true)) {
+                $data['body_err'] = 'Invalid file format.';
+            }
+            // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
+            // Check MIME Type by yourself.
+            try {
 
-            if (empty($data['title_err']) && empty($data['body_err'])) {
+                // You should name it uniquely.
+                // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
+                // On this example, obtain safe unique name from its binary data.
+                if (!move_uploaded_file(
+                    $_FILES['image']['tmp_name'],
+                    sprintf($target,
+                        sha1_file($_FILES['image']['tmp_name']),
+                        $ext
+                    )
+                )) {
+                    $data['body_err'] = 'move files';
+                }
+
+            } catch (RuntimeException $e) {
+
+                $data['body_err'] = $e->getMessage();
+
+            }
+
+            if (empty($data['title_err']) && empty($data['body_err']) && empty($data['img_err'])) {
                 if ($this->postModel->updatePost($data)) {
-                    $target = dirname(APPROOT) . '/public/img/' . $imageName;
-                    if ($_FILES['image']['size'] > 1000000) {
-                        throw new RuntimeException('Exceeded filesize limit.');
-                    }
 
-                    // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
-                    // Check MIME Type by yourself.
-                    $finfo = new finfo(FILEINFO_MIME_TYPE);
-                    if (false === $ext = array_search(
-                        $finfo->file($_FILES['image']['tmp_name']),
-                        array(
-                            'jpg' => 'image/jpeg',
-                            'png' => 'image/png',
-                            'gif' => 'image/gif',
-                        ),
-                        true
-                    )) {
-                        throw new RuntimeException('Invalid file format.');
-                    }
-                    try {
-
-                        // You should name it uniquely.
-                        // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
-                        // On this example, obtain safe unique name from its binary data.
-                        if (!move_uploaded_file(
-                            $_FILES['image']['tmp_name'],
-                            sprintf($target,
-                                sha1_file($_FILES['image']['tmp_name']),
-                                $ext
-                            )
-                        )) {
-                            throw new RuntimeException(APPROOT);
-                        }
-
-                        echo $target;
-
-                    } catch (RuntimeException $e) {
-
-                        echo $e->getMessage();
-
-                    }
+                    flash('post_message', 'Post Updated');
+                    redirect('posts');
 
                 }
+
             } else {
-                $this->view('posts/add', $data);
+                $this->view('posts/edit', $data);
             }
 
         } else {
@@ -154,6 +155,7 @@ class Posts extends Controller
                 'id' => $id,
                 'title' => $post->title,
                 'body' => $post->body,
+                'image' => $post->image,
             ];
         }
 
