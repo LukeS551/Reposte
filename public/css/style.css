@@ -86,14 +86,37 @@ h1 {
 
 .cover {
   height: 500px;
-
+  /* min-height: 200px; */
   object-fit: cover;
   background-size: cover;
   background-position: 0% 100%;
 }
 
+
 .test {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Lato, Helvetica, sans-serif;
   background-color: rgb(255, 255, 255, 0.5);
-  padding: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .cover {
+    height: 200px;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+
 }

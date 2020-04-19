@@ -24,14 +24,49 @@ class Posts extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
+            $imageName = $_FILES['image']['name'];
+            $target = dirname(APPROOT) . '/public/img/' . $imageName;
             $data = [
                 'title' => trim($_POST['title']),
                 'body' => trim($_POST['body']),
                 'user_id' => $_SESSION['user_id'],
+                'image' => $imageName,
                 'title_err' => '',
                 'body_err' => '',
+                'img_err' => '',
             ];
+
+            if ($_FILES['image']['size'] >= 100000000) {
+                $data['body_err'] = 'Exceeded filesize limit';
+            }
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            if (false === $ext = array_search(
+                $finfo->file($_FILES['image']['tmp_name']),
+                array(
+                    'jpg' => 'image/jpeg',
+                    'png' => 'image/png',
+                    'gif' => 'image/gif',
+                ),
+                true)) {
+                $data['body_err'] = 'Invalid file format.';
+            }
+            // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
+            // Check MIME Type by yourself.
+            try {
+
+                // You should name it uniquely.
+                // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
+                // On this example, obtain safe unique name from its binary data.
+                if (!move_uploaded_file(
+                    $_FILES['image']['tmp_name'],
+                    sprintf($target,
+                        sha1_file($_FILES['image']['tmp_name']),
+                        $ext))) {
+                    $data['body_err'] = 'move files';
+                }
+            } catch (RuntimeException $e) {
+                $data['body_err'] = $e->getMessage();
+            }
 
             if (empty($data['title'])) {
                 $data['title_err'] = 'Please enter title';
@@ -54,6 +89,7 @@ class Posts extends Controller
             $data = [
                 'title' => '',
                 'body' => '',
+                'image' => '',
             ];
         }
 
@@ -121,33 +157,23 @@ class Posts extends Controller
                     $_FILES['image']['tmp_name'],
                     sprintf($target,
                         sha1_file($_FILES['image']['tmp_name']),
-                        $ext
-                    )
-                )) {
+                        $ext))) {
                     $data['body_err'] = 'move files';
                 }
-
             } catch (RuntimeException $e) {
-
                 $data['body_err'] = $e->getMessage();
-
             }
 
             if (empty($data['title_err']) && empty($data['body_err']) && empty($data['img_err'])) {
                 if ($this->postModel->updatePost($data)) {
-
                     flash('post_message', 'Post Updated');
                     redirect('posts');
-
                 }
-
             } else {
                 $this->view('posts/edit', $data);
             }
-
         } else {
             $post = $this->postModel->getPostById($id);
-
             if ($post->user_id != $_SESSION['user_id']) {
                 redirect('posts');
             }
@@ -158,7 +184,6 @@ class Posts extends Controller
                 'image' => $post->image,
             ];
         }
-
         $this->view('posts/edit', $data);
     }
 
@@ -224,10 +249,6 @@ class Posts extends Controller
       </a>';
         $mpdf->WriteHTML($link);
         $mpdf->Output('posts.pdf', 'I');
-    }
-    public function upload()
-    {
-
     }
 
     public function cutLength($var, $length)
